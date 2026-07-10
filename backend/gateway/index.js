@@ -6,6 +6,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import protect from "./middlewear/auth.middlewear.js"
 import { getCurrentUser } from "./controller/user.controller.js"
+import { proxywithheaders } from "./utils/proxywithheaders.js"
 
 const port=process.env.PORT
 
@@ -17,6 +18,7 @@ app.use(cors({
 
 app.use(cookieParser())
 app.use("/auth",proxy(process.env.AUTH_SERVICE))
+app.use("/chat",protect,proxywithheaders(process.env.CHAT_SERVICE))
 app.get("/me",protect,getCurrentUser)
 
 
