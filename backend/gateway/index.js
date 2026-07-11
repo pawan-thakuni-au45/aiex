@@ -19,6 +19,8 @@ app.use(cors({
 app.use(cookieParser())
 app.use("/auth",proxy(process.env.AUTH_SERVICE))
 app.use("/chat",protect,proxywithheaders(process.env.CHAT_SERVICE))
+app.use("/auth",protect,proxy(process.env.AGENT_SERVICE))
+
 app.get("/me",protect,getCurrentUser)
 
 
